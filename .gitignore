@@ -2,3 +2,4 @@ test.*
 tempfile.sh
 getpulllist
 .idea
+*.class
