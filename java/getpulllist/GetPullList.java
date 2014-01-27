@@ -18,7 +18,7 @@ package getpulllist;
 import javax.crypto.Mac;
 import java.net.URLEncoder;
 import javax.crypto.spec.SecretKeySpec;
-import sun.misc.BASE64Encoder;
+import sun.misc.BASE64Encoder; // http://iharder.sourceforge.net/current/java/base64/
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.*;
