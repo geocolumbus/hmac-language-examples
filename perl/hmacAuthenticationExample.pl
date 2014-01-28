@@ -1,0 +1,116 @@
+#!/usr/bin/perl
+
+###############################################################################
+# Copyright 2014 OCLC
+#
+# Licensed under the Apache License, Version 2.0 (the "License"); you may not
+# use this file except in compliance with the License. You may obtain a copy of
+# the License at
+#
+# http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+###############################################################################
+
+# Perl 5.12 HMAC Authentication and WMS Pull List GET
+
+use Digest::SHA qw(hmac_sha256_base64);
+use MIME::Base64;
+use LWP; # port install p5.12-libwww-perl
+use LWP::UserAgent;
+$ENV{'PERL_LWP_SSL_VERIFY_HOSTNAME'} = 0;
+
+sub urlencode { 
+    my $s = shift; 
+    $s =~ s/ /+/g; 
+    $s =~ s/([^A-Za-z0-9+-])/sprintf("%%%02X", ord($1))/seg; 
+    return $s; 
+}
+
+# Define constants
+
+$wskey         = "";
+$secret        = "";
+$principalID   = "";
+$principalIDNS = "";
+$institutionId = "";
+$branchId      = "";
+$startIndex    = "1";
+$itemsPerPage  = "10";
+
+# Declare variables
+
+$url = "";
+$queryparams = "";
+$principalIDEncoded = "";
+$principalIDNSEncoded = "";
+$timestamp = "";
+$nonce = "";
+$bodyhash = "";
+$method = "";
+$normalizedRequest = "";
+$signature = "";
+$authorization = "";
+$header = "";
+$q = "\"";
+$qc = "\",";
+$uri = "";
+$http = "";
+$request = "";
+$xmlresult = "";
+
+$urlpattern = "https://circ.sd00.worldcat.org/pulllist/{branchId}?inst={institutionId}&principalID={principalIDEncoded}&principalIDNS={principalIDNSEncoded}";
+
+$principalIDEncoded = urlencode($principalID);
+$principalIDNSEncoded = urlencode($principalIDNS);
+
+# construct the parameter list
+$queryparams = "inst=".$institutionId."\n"."principalID=".$principalIDEncoded."\n"."principalIDNS=".$principalIDNSEncoded."\n";
+
+# set the method
+$method = "GET";
+
+# construct the url
+$url = $urlpattern;
+$url =~ s/{branchId}/$branchId/;
+$url =~ s/{institutionId}/$institutionId/;
+$url =~ s/{principalIDEncoded}/$principalIDEncoded/;
+$url =~ s/{principalIDNSEncoded}/$principalIDNSEncoded/;
+
+# create the timestamp, POSIX seconds since 1970 (aka Unix Time)
+$timestamp = time;
+
+# create the nonce, a random 8 digit hex string
+$nonce = sprintf("%x", int(rand()*4026531839+268435456));
+
+# for this implementation, bodyhash is empty string
+$bodyhash = "";
+
+# create the normalized request
+$normalizedRequest = $wskey."\n".$timestamp."\n".$nonce."\n".$bodyhash."\n".$method."\n"."www.oclc.org"."\n"."443"."\n"."/wskey"."\n".$queryparams;
+
+# hash the normalized request
+$signature = hmac_sha256_base64($normalizedRequest, $secret) . "=";
+
+# create the authorization header
+$authorization = "http://www.worldcat.org/wskey/v2/hmac/v1 "."clientId=".$q.$wskey.$qc."timestamp=".$q.$timestamp.$qc."nonce=".$q.$nonce.$qc."signature=".$q.$signature.$q;
+
+# Make the HTTP request
+$ua = new LWP::UserAgent;
+if ($method=='GET') {
+    $req = new HTTP::Request GET => $url;
+} elsif ($method=='POST') {
+    $req = new HTTP::Request POST => $url;
+    $req->content_type('application/x-www-form-urlencoded');
+    $req->content('xml=<start></start>');
+}
+$req->header(Authorization => $authorization);
+my $res = $ua->request($req);
+$xmlresult = $res->content;
+
+print $xmlresult;
+print "\n";
