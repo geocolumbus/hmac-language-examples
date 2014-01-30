@@ -91,13 +91,24 @@ $nonce = sprintf("%x", int(rand()*4026531839+268435456));
 $bodyhash = "";
 
 # create the normalized request
-$normalizedRequest = $wskey."\n".$timestamp."\n".$nonce."\n".$bodyhash."\n".$method."\n"."www.oclc.org"."\n"."443"."\n"."/wskey"."\n".$queryparams;
+$normalizedRequest = $wskey."\n".
+$timestamp."\n".
+$nonce."\n".
+$bodyhash."\n".
+$method."\n".
+"www.oclc.org"."\n".
+"443"."\n".
+"/wskey"."\n".
+$queryparams;
 
 # hash the normalized request
 $signature = hmac_sha256_base64($normalizedRequest, $secret) . "=";
 
 # create the authorization header
-$authorization = "http://www.worldcat.org/wskey/v2/hmac/v1 "."clientId=".$q.$wskey.$qc."timestamp=".$q.$timestamp.$qc."nonce=".$q.$nonce.$qc."signature=".$q.$signature.$q;
+$authorization = "http://www.worldcat.org/wskey/v2/hmac/v1 "."clientId=".$q.$wskey.$qc.
+"timestamp=".$q.$timestamp.$qc.
+"nonce=".$q.$nonce.$qc.
+"signature=".$q.$signature.$q;
 
 # Make the HTTP request
 $ua = new LWP::UserAgent;

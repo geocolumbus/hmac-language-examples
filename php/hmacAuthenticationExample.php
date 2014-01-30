@@ -59,10 +59,10 @@ $method = "GET";
 
 // construct the url
 $url = $urlpattern;
-$url = str_replace("{inst}",$institutionId,$url);
-$url = str_replace("{oclcNumber}",$oclcNumber,$url);
-$url = str_replace("{classificationScheme}",$classificationScheme,$url);
-$url = str_replace("{holdingLibraryCode}",$holdingLibraryCode,$url);
+$url = str_replace("{inst}", $institutionId, $url);
+$url = str_replace("{oclcNumber}", $oclcNumber, $url);
+$url = str_replace("{classificationScheme}", $classificationScheme, $url);
+$url = str_replace("{holdingLibraryCode}", $holdingLibraryCode, $url);
 $url = str_replace("{principalIDEncoded}", $principalIDEncoded, $url);
 $url = str_replace("{principalIDNSEncoded}", $principalIDNSEncoded, $url);
 
