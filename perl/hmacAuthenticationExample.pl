@@ -16,7 +16,9 @@
 # limitations under the License.
 ###############################################################################
 
-# Perl 5.12 HMAC Authentication and WMS Pull List GET
+# Perl 5.12 HMAC Authentication and Worldcat Metadata Bibliographic Record Request
+#
+# http://oclc.org/developer/documentation/worldcat-metadata-api/bibliographic-record-resource
 
 use Digest::SHA qw(hmac_sha256_base64);
 use MIME::Base64;
@@ -37,47 +39,47 @@ $wskey         = "";
 $secret        = "";
 $principalID   = "";
 $principalIDNS = "";
-$institutionId = "";
-$branchId      = "";
+$institutionId = "128807";
+$classificationScheme = "LibraryOfCongress";
+# Get holding codes this way - requires HMAC
+# https://worldcat.org/bib/holdinglibraries?inst=128807&principalID={}&principalIDNS={}
+$holdingLibraryCode = "MAIN";
+$oclcNumber = "1039085";
+
 $startIndex    = "1";
 $itemsPerPage  = "10";
 
-# Declare variables
-
-$url = "";
-$queryparams = "";
-$principalIDEncoded = "";
-$principalIDNSEncoded = "";
-$timestamp = "";
-$nonce = "";
-$bodyhash = "";
-$method = "";
-$normalizedRequest = "";
-$signature = "";
-$authorization = "";
-$header = "";
+# Quote and quote with a comma - used for constructing url later
 $q = "\"";
 $qc = "\",";
-$uri = "";
-$http = "";
-$request = "";
-$xmlresult = "";
 
-$urlpattern = "https://circ.sd00.worldcat.org/pulllist/{branchId}?inst={institutionId}&principalID={principalIDEncoded}&principalIDNS={principalIDNSEncoded}";
+$urlpattern = "https://worldcat.org/bib/data/{oclcNumber}?" .
+                  "inst={inst}" .
+                  "&classificationScheme={classificationScheme}" .
+                  "&holdingLibraryCode={holdingLibraryCode}" .
+                  "&principalID={principalIDEncoded}" .
+                  "&principalIDNS={principalIDNSEncoded}";
 
 $principalIDEncoded = urlencode($principalID);
 $principalIDNSEncoded = urlencode($principalIDNS);
 
 # construct the parameter list
-$queryparams = "inst=".$institutionId."\n"."principalID=".$principalIDEncoded."\n"."principalIDNS=".$principalIDNSEncoded."\n";
+$queryparams = "".
+"classificationScheme=" . $classificationScheme . "\n" .
+"holdingLibraryCode=" . $holdingLibraryCode . "\n" .
+"inst=".$institutionId."\n".
+"principalID=".$principalIDEncoded."\n".
+"principalIDNS=".$principalIDNSEncoded."\n";
 
 # set the method
 $method = "GET";
 
 # construct the url
 $url = $urlpattern;
-$url =~ s/{branchId}/$branchId/;
-$url =~ s/{institutionId}/$institutionId/;
+$url =~ s/{classificationScheme}/$classificationScheme/;
+$url =~ s/{holdingLibraryCode}/$holdingLibraryCode/;
+$url =~ s/{oclcNumber}/$oclcNumber/;
+$url =~ s/{inst}/$institutionId/;
 $url =~ s/{principalIDEncoded}/$principalIDEncoded/;
 $url =~ s/{principalIDNSEncoded}/$principalIDNSEncoded/;
 

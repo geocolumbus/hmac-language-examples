@@ -16,6 +16,7 @@
  ******************************************************************************/
 
 // PHP 5.4.17 HMAC Authentication and Worldcat Metadata Bibliographic Record Request
+//
 // http://oclc.org/developer/documentation/worldcat-metadata-api/bibliographic-record-resource
 
 // Define constants
@@ -24,7 +25,6 @@ $secret = "";
 $principalID = "";
 $principalIDNS = "";
 $institutionId = "128807";
-$oclcNumber = "";
 $classificationScheme = "LibraryOfCongress";
 // Get holding codes this way - requires HMAC
 // https://worldcat.org/bib/holdinglibraries?inst=128807&principalID={}&principalIDNS={}
@@ -32,7 +32,6 @@ $holdingLibraryCode = "MAIN";
 $oclcNumber = "1039085";
 $startIndex = "1";
 $itemsPerPage = "10";
-$acceptType = "application/atom+json";
 
 // Quote and quote with a comma - used for constructing url later
 $q = "\"";
@@ -101,7 +100,6 @@ $authorization = "http://www.worldcat.org/wskey/v2/hmac/v1 " .
 
 // Make the HTTP request
 $headerArray[] = "Authorization: " . $authorization;
-$headerArray[] = "Accept: " . $accept;
 
 $ch = curl_init();
 curl_setopt($ch, CURLOPT_URL, $url);

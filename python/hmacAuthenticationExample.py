@@ -16,7 +16,9 @@
 # limitations under the License.
 ###############################################################################
 
-# Python 2.75 HMAC Authentication and WMS Pull List GET
+# Python 2.75 HMAC Authentication and Worldcat Metadata Bibliographic Record Request
+#
+# http://oclc.org/developer/documentation/worldcat-metadata-api/bibliographic-record-resource
 
 import random
 import math
@@ -32,48 +34,51 @@ wskey         = ""
 secret        = ""
 principalID   = ""
 principalIDNS = ""
-institutionId = ""
-branchId      = ""
+institutionId = "128807"
+classificationScheme = "LibraryOfCongress"
+# Get holding codes this way - requires HMAC
+# https://worldcat.org/bib/holdinglibraries?inst=128807&principalID={}&principalIDNS={}
+holdingLibraryCode = "MAIN"
+oclcNumber = "1039085"
+
 startIndex    = "1"
 itemsPerPage  = "10"
 
-# Declare variables
-url = ""
-queryparams = ""
-principalIDEncoded = ""
-principalIDNSEncoded = ""
-timestamp = ""
-nonce = ""
-bodyhash = ""
-method = ""
-normalizedRequest = ""
-signature = ""
-authorization = ""
-header = ""
+# Quote and quote with a comma - used for constructing url later
 q = "\""
 qc = "\","
-uri = ""
-http = ""
-request = ""
-xmlresult = ""
 
-urlpattern = "https://circ.sd00.worldcat.org/pulllist/{branchId}?inst={institutionId}&principalID={principalIDEncoded}&principalIDNS={principalIDNSEncoded}"
+urlpattern = "https://worldcat.org/bib/data/{oclcNumber}?" + \
+                 "inst={inst}" + \
+                 "&classificationScheme={classificationScheme}" + \
+                 "&holdingLibraryCode={holdingLibraryCode}" + \
+                 "&principalID={principalIDEncoded}" + \
+                 "&principalIDNS={principalIDNSEncoded}";
 
 principalIDEncoded = urllib.quote(principalID)
 principalIDNSEncoded = urllib.quote(principalIDNS)
 
 # construct the parameter list
-queryparams = "inst=" + institutionId + "\n" + "principalID=" + principalIDEncoded + "\n" + "principalIDNS=" + principalIDNSEncoded + "\n"
+queryparams = ""+ \
+"classificationScheme=" + classificationScheme + "\n" + \
+"holdingLibraryCode=" + holdingLibraryCode + "\n" + \
+"inst=" + institutionId + "\n" + \
+"principalID=" + principalIDEncoded + "\n" + \
+"principalIDNS=" + principalIDNSEncoded + "\n"
 
 # set the method
 method = "GET"
 
 # construct the url
 url = urlpattern
-url = url.replace("{branchId}",branchId)
-url = url.replace("{institutionId}",institutionId)
+url = url.replace("{classificationScheme}",classificationScheme)
+url = url.replace("{holdingLibraryCode}",holdingLibraryCode)
+url = url.replace("{inst}",institutionId)
+url = url.replace("{oclcNumber}",oclcNumber)
 url = url.replace("{principalIDEncoded}",principalIDEncoded)
 url = url.replace("{principalIDNSEncoded}",principalIDNSEncoded)
+
+print url
 
 # create the timestamp, POSIX seconds since 1970 (aka Unix Time)
 timestamp = str(int(time.time()))
