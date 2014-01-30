@@ -33,7 +33,7 @@ sub urlencode {
     return $s; 
 }
 
-# Define constants
+# Authentication and request parameters
 
 $wskey         = "";
 $secret        = "";
@@ -41,8 +41,6 @@ $principalID   = "";
 $principalIDNS = "";
 $institutionId = "128807";
 $classificationScheme = "LibraryOfCongress";
-# Get holding codes this way - requires HMAC
-# https://worldcat.org/bib/holdinglibraries?inst=128807&principalID={}&principalIDNS={}
 $holdingLibraryCode = "MAIN";
 $oclcNumber = "1039085";
 
