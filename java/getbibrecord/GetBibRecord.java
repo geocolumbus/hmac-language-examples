@@ -50,8 +50,6 @@ public class GetBibRecord {
 
         String url = "";
         String queryparams = "";
-        String principalIDEncoded = "";
-        String principalIDNSEncoded = "";
         String timestamp = "";
         String nonce = "";
         String bodyhash = "";
@@ -70,30 +68,15 @@ public class GetBibRecord {
         String urlpattern = "https://worldcat.org/bib/data/{oclcNumber}?" +
                 "inst={inst}" +
                 "&classificationScheme={classificationScheme}" +
-                "&holdingLibraryCode={holdingLibraryCode}" +
-                "&principalID={principalIDEncoded}" +
-                "&principalIDNS={principalIDNSEncoded}";
-
-        try {
-            principalIDEncoded = URLEncoder.encode(principalID, "UTF-8");
-        } catch (java.io.IOException e) {
-            System.out.println("IO Error: " + e);
-        }
-        try {
-            principalIDNSEncoded = URLEncoder.encode(principalIDNS, "UTF-8");
-        } catch (java.io.IOException e) {
-            System.out.println("IO Error: " + e);
-        }
+                "&holdingLibraryCode={holdingLibraryCode}";
 
 // construct the parameter list
         queryparams = "" +
                 "classificationScheme=" + classificationScheme + "\n" +
                 "holdingLibraryCode=" + holdingLibraryCode + "\n" +
-                "inst=" + institutionId + "\n" +
-                "principalID=" + principalIDEncoded + "\n" +
-                "principalIDNS=" + principalIDNSEncoded + "\n";
+                "inst=" + institutionId + "\n";
 
-        System.out.println(queryparams);
+        System.out.println("\nQuery Parameters:\n" + queryparams + "\n\n");
 
 // set the method
         method = "GET";
@@ -104,8 +87,8 @@ public class GetBibRecord {
         url = url.replaceFirst("\\{classificationScheme\\}", classificationScheme);
         url = url.replaceFirst("\\{holdingLibraryCode\\}", holdingLibraryCode);
         url = url.replaceFirst("\\{oclcNumber\\}", oclcNumber);
-        url = url.replaceFirst("\\{principalIDEncoded\\}", principalIDEncoded);
-        url = url.replaceFirst("\\{principalIDNSEncoded\\}", principalIDNSEncoded);
+
+        System.out.println("URL:\n" + url + "\n\n");
 
 // create the timestamp, POSIX seconds since 1970 (aka Unix Time)
         timestamp = System.currentTimeMillis() / 1000 + "";
@@ -127,6 +110,8 @@ public class GetBibRecord {
                 "/wskey" + "\n" +
                 queryparams;
 
+        System.out.println("Normalized Request:\n" + normalizedRequest + "\n\n");
+
 // hash the normalized request
         try {
             Mac sha256_HMAC = Mac.getInstance("HmacSHA256");
@@ -146,12 +131,14 @@ public class GetBibRecord {
 
 // create the authorization header
         authorization = "http://www.worldcat.org/wskey/v2/hmac/v1 "
-                + "clientId=" +
-                q + wskey + qc + "timestamp=" +
-                q + timestamp + qc + "nonce=" +
-                q + nonce + qc + "signature=" +
-                q + signature + q;
-        System.out.println(authorization);
+                + "clientId=" + q + wskey + qc +
+                "timestamp=" + q + timestamp + qc +
+                "nonce=" + q + nonce + qc +
+                "signature=" + q + signature + qc +
+                "principalID=" + q + principalID + qc +
+                "principalIDNS=" + q + principalIDNS + q;
+
+        System.out.println("Authorization Header:\n" + authorization + "\n\n");
 
 // Make the HTTP request
         System.out.println(url);
@@ -176,7 +163,7 @@ public class GetBibRecord {
             System.out.println(e);
         }
 
-        System.out.println(xmlresult);
+        System.out.println("Result:\n"+xmlresult);
 
     }
 }
