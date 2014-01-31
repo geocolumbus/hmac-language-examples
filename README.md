@@ -18,6 +18,10 @@ You can request these parameters from <a href="https://www.worldcat.org/config/"
 
 Additional information about OCLC APIs is available from the <a href="http://oclc.org/developer/">OCLC Developer Network</a>. You will find specific information about <a href="http://oclc.org/developer/platform/authentication/hmac-signature">generating an HMAC Signature</a> and the <a href="http://oclc.org/developer/documentation/worldcat-metadata-api/bibliographic-record-resource">retrieving a bibliographic record from the Worldcat Metadata API</a> there as well.
 
+## Use Case
+
+When developing with an API that requires a complex security hashing algorithm, it is helpful to have a simple reference script that can successfully perform a GET. This way you can verify your keys are valid without wondering if it is your key or the hashing algorithm that is the problem.
+
 ## HMAC Signature Algorithm
 
 The examples in all the languages follow this algorithm:
