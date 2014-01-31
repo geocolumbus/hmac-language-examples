@@ -34,8 +34,6 @@ https://worldcat.org/bib/data/{oclcNumber}?
 inst={inst}
 &classificationScheme={classificationScheme}
 &holdingLibraryCode={holdingLibraryCode}
-&principalID={principalIDEncoded}
-&principalIDNS={principalIDNSEncoded}
 </pre>
 The {parameters} need to be url encoded. For some OCLC API's (including this one, Worldcat Metadata), the principalID
 and principalIDNS can sent as key value pairs in the request header and omitted from the url. However, I coded these
@@ -49,9 +47,7 @@ Create a string containing an <b>alphabetical</b> list of the parameters, each t
 <pre>
 $queryParams = "classificationScheme=" . $classificationScheme . "\n" .
     "holdingLibraryCode=" . $holdingLibraryCode . "\n" .
-    "inst=" . $institutionId . "\n" .
-    "principalID=" . $principalIDEncoded . "\n" .
-    "principalIDNS=" . $principalIDNSEncoded . "\n";
+    "inst=" . $institutionId . "\n";
 </pre>
 </li>
 <li>Set the method to GET</li>
@@ -85,14 +81,16 @@ The hard work of building this repository was assembling the proper libraries an
 for different languages (PHP, Perl, Python and Java).
 
 </li>
-<li>Construct the authorization header:
+<li>Construct the authorization header (note I broke it across multiple lines to make it more readable. In practice, it runs together on the same line - no "\n")
 <pre>
-$authorization = "http://www.worldcat.org/wskey/v2/hmac/v1 " .
-    "clientId=" . $q . $wskey . $qc .
-    "timestamp=" . $q . $timestamp . $qc .
-    "nonce=" . $q . $nonce . $qc .
-    "signature=" . $q . $signature . $q;
-</pre></li>
+    http://www.worldcat.org/wskey/v2/hmac/v1
+    clientId="{wskey}"
+    timestamp="{timestamp}"
+    nonce="{nonce}"
+    signature="{signature}"
+    principalID="{principalID}"
+    principalIDNS="{principalIDNS}"
+    </pre></li>
 <li>Finally, you are ready to make the request:
 <ul>
 <li>Set any additional headers per the documentation; for example "Accept: application/json"</li>
