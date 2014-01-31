@@ -34,6 +34,9 @@ https://worldcat.org/bib/data/{oclcNumber}?
 inst={inst}
 &classificationScheme={classificationScheme}
 &holdingLibraryCode={holdingLibraryCode}
+
+For example:
+https://worldcat.org/bib/data/1039085?inst=128807&classificationScheme=LibraryOfCongress&holdingLibraryCode=MAIN
 </pre>
 The {parameters} need to be url encoded. For some OCLC API's (including this one, Worldcat Metadata), the principalID
 and principalIDNS can sent as key value pairs in the request header and omitted from the url. However, I coded these
@@ -43,28 +46,43 @@ examples to include PrincipalID and PrincipalIDNS in the URL's. You can modify t
 Generate the normalized request.
 <ul>
 <li>
-Create a string containing an <b>alphabetical</b> list of the parameters, each terminated with a newline:
+Create a string containing an <b>alphabetical</b> list of the parameters, <b>each terminated with a newline</b>:
 <pre>
-$queryParams = "classificationScheme=" . $classificationScheme . "\n" .
-    "holdingLibraryCode=" . $holdingLibraryCode . "\n" .
-    "inst=" . $institutionId . "\n";
+classificationScheme=LibraryOfCongress
+holdingLibraryCode=MAIN
+inst=128807
 </pre>
 </li>
 <li>Set the method to GET</li>
 <li>Set the timestamp to current posix time (a.k.a. unix time)</li>
 <li>Create the nonce, a random 8 digit hex string</li>
 <li>Set the body hash to empty string (not used in this example)</li>
-<li>Build the normalized request from all of the above:
+<li>Build the normalized request from all of the above - note the newline characters after each parameter - and since
+we added a newline on the end of the queryparameters above, we don't add one here.
 <pre>
-$normalizedRequest = $wskey . "\n" .
-    $timestamp . "\n" .
-    $nonce . "\n" .
-    $bodyhash . "\n" .
-    $method . "\n" .
-    "www.oclc.org" . "\n" .
-    "443" . "\n" .
-    "/wskey" . "\n" .
-    $queryparams;
+    $wskey + "\n"
+    $timestamp + "\n"
+    $nonce + "\n"
+    $bodyhash + "\n"
+    $method + "\n"
+    "www.oclc.org" + "\n"
+    "443" + "\n" .
+    "/wskey" + "\n"
+    $queryparams
+
+For example:
+
+{wskey - I can't show it here for security reasons. Like FabeuFmMwhHAA...}
+1391177450
+42203e11
+
+GET
+www.oclc.org
+443
+/wskey
+classificationScheme=LibraryOfCongress
+holdingLibraryCode=MAIN
+inst=128807
 </pre>
 </li>
 </ul>
@@ -90,7 +108,10 @@ for different languages (PHP, Perl, Python and Java).
     signature="{signature}"
     principalID="{principalID}"
     principalIDNS="{principalIDNS}"
-    </pre></li>
+    </pre>
+
+    For example:
+    http://www.worldcat.org/wskey/v2/hmac/v1 clientId="{wskey}",timestamp="1391177450",nonce="42203e11",signature="zk/q5vyHCOLulPf6Yu5pONy+pTsKby4RN+WJ1+TT1SQ=",principalID="{principalID}",principalIDNS="{principalIDNS}"</li>
 <li>Finally, you are ready to make the request:
 <ul>
 <li>Set any additional headers per the documentation; for example "Accept: application/json"</li>
