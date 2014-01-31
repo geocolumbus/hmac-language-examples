@@ -72,6 +72,8 @@ In PHP, it looks like this:
 $signature = base64_encode(hash_hmac("sha256", $normalizedRequest, $secret, true));
 </pre>
 
+The hard work of building this repository was assembling the proper libraries and techniques for performing this hash for the various languages presented (PHP, Perl, Python and Java).
+
 </li>
 <li>Construct the authorization header:
 <pre>
