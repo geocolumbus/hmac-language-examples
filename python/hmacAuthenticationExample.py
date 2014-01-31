@@ -16,9 +16,7 @@
 # limitations under the License.
 ###############################################################################
 
-# Python 2.75 HMAC Authentication and Worldcat Metadata Bibliographic Record Request
-#
-# http://oclc.org/developer/documentation/worldcat-metadata-api/bibliographic-record-resource
+# Python 2.75 HMAC Authentication and WMS Pull List GET
 
 import random
 import math
@@ -29,10 +27,10 @@ import hashlib
 import base64
 import urllib2
 
-# Authentication and request parameters
-wskey = ""
-secret = ""
-principalID = ""
+# Define constants
+wskey         = ""
+secret        = ""
+principalID   = ""
 principalIDNS = ""
 institutionId = "128807"
 classificationScheme = "LibraryOfCongress"
@@ -49,20 +47,15 @@ qc = "\","
 urlpattern = "https://worldcat.org/bib/data/{oclcNumber}?" + \
              "inst={inst}" + \
              "&classificationScheme={classificationScheme}" + \
-             "&holdingLibraryCode={holdingLibraryCode}" + \
-             "&principalID={principalIDEncoded}" + \
-             "&principalIDNS={principalIDNSEncoded}";
-
-principalIDEncoded = urllib.quote(principalID)
-principalIDNSEncoded = urllib.quote(principalIDNS)
+             "&holdingLibraryCode={holdingLibraryCode}"
 
 # construct the parameter list
 queryparams = "" + \
               "classificationScheme=" + classificationScheme + "\n" + \
               "holdingLibraryCode=" + holdingLibraryCode + "\n" + \
-              "inst=" + institutionId + "\n" + \
-              "principalID=" + principalIDEncoded + "\n" + \
-              "principalIDNS=" + principalIDNSEncoded + "\n"
+              "inst=" + institutionId + "\n"
+
+print "\n"+"Query Parameters:\n"+queryparams+"\n\n"
 
 # set the method
 method = "GET"
@@ -73,10 +66,8 @@ url = url.replace("{classificationScheme}", classificationScheme)
 url = url.replace("{holdingLibraryCode}", holdingLibraryCode)
 url = url.replace("{inst}", institutionId)
 url = url.replace("{oclcNumber}", oclcNumber)
-url = url.replace("{principalIDEncoded}", principalIDEncoded)
-url = url.replace("{principalIDNSEncoded}", principalIDNSEncoded)
 
-print url
+print "URL:\n"+url+"\n\n"
 
 # create the timestamp, POSIX seconds since 1970 (aka Unix Time)
 timestamp = str(int(time.time()))
@@ -98,6 +89,8 @@ normalizedRequest = wskey + "\n" + \
                     "/wskey" + "\n" + \
                     queryparams
 
+print "Normalized Request:\n"+normalizedRequest+"\n\n"
+
 # hash the normalized request
 digest = hmac.new(secret, msg=normalizedRequest, digestmod=hashlib.sha256).digest()
 signature = base64.b64encode(digest).decode()
@@ -106,7 +99,11 @@ signature = base64.b64encode(digest).decode()
 authorization = "http://www.worldcat.org/wskey/v2/hmac/v1 " + "clientId=" + q + wskey + qc + \
                 "timestamp=" + q + timestamp + qc + \
                 "nonce=" + q + nonce + qc + \
-                "signature=" + q + signature + q
+                "signature=" + q + signature + qc + \
+                "principalID=" + q + principalID + qc + \
+                "principalIDNS=" + q + principalIDNS + q
+
+print "Authorization Header:\n"+authorization+"\n\n"
 
 # Make the HTTP request
 if method == 'GET':
@@ -115,4 +112,4 @@ else:
     myRequest = urllib2.Request(url, xmlrequest, {'Authorization': authorization})
 xmlresult = urllib2.urlopen(myRequest).read()
 
-print xmlresult
+print "Result:\n"+xmlresult

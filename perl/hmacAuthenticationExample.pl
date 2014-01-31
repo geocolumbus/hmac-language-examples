@@ -16,9 +16,7 @@
 # limitations under the License.
 ###############################################################################
 
-# Perl 5.12 HMAC Authentication and Worldcat Metadata Bibliographic Record Request
-#
-# http://oclc.org/developer/documentation/worldcat-metadata-api/bibliographic-record-resource
+# Perl 5.12 HMAC Authentication and WMS Pull List GET
 
 use Digest::SHA qw(hmac_sha256_base64);
 use MIME::Base64;
@@ -33,14 +31,16 @@ sub urlencode {
     return $s; 
 }
 
-# Authentication and request parameters
+# Define constants
 
 $wskey         = "";
 $secret        = "";
-$principalID   = "";
+$principalID   = ";
 $principalIDNS = "";
 $institutionId = "128807";
 $classificationScheme = "LibraryOfCongress";
+# Get holding codes this way - requires HMAC
+# https://worldcat.org/bib/holdinglibraries?inst=128807&principalID={}&principalIDNS={}
 $holdingLibraryCode = "MAIN";
 $oclcNumber = "1039085";
 
@@ -54,20 +54,15 @@ $qc = "\",";
 $urlpattern = "https://worldcat.org/bib/data/{oclcNumber}?" .
                   "inst={inst}" .
                   "&classificationScheme={classificationScheme}" .
-                  "&holdingLibraryCode={holdingLibraryCode}" .
-                  "&principalID={principalIDEncoded}" .
-                  "&principalIDNS={principalIDNSEncoded}";
-
-$principalIDEncoded = urlencode($principalID);
-$principalIDNSEncoded = urlencode($principalIDNS);
+                  "&holdingLibraryCode={holdingLibraryCode}";
 
 # construct the parameter list
 $queryparams = "".
 "classificationScheme=" . $classificationScheme . "\n" .
 "holdingLibraryCode=" . $holdingLibraryCode . "\n" .
-"inst=".$institutionId."\n".
-"principalID=".$principalIDEncoded."\n".
-"principalIDNS=".$principalIDNSEncoded."\n";
+"inst=".$institutionId."\n";
+
+print "\nQuery Parameters:\n".$queryparams."\n\n";
 
 # set the method
 $method = "GET";
@@ -78,8 +73,8 @@ $url =~ s/{classificationScheme}/$classificationScheme/;
 $url =~ s/{holdingLibraryCode}/$holdingLibraryCode/;
 $url =~ s/{oclcNumber}/$oclcNumber/;
 $url =~ s/{inst}/$institutionId/;
-$url =~ s/{principalIDEncoded}/$principalIDEncoded/;
-$url =~ s/{principalIDNSEncoded}/$principalIDNSEncoded/;
+
+print "URL:\n".$url."\n\n";
 
 # create the timestamp, POSIX seconds since 1970 (aka Unix Time)
 $timestamp = time;
@@ -101,6 +96,8 @@ $method."\n".
 "/wskey"."\n".
 $queryparams;
 
+print "Normalized Request:\n".$normalizedRequest."\n\n";
+
 # hash the normalized request
 $signature = hmac_sha256_base64($normalizedRequest, $secret) . "=";
 
@@ -108,7 +105,11 @@ $signature = hmac_sha256_base64($normalizedRequest, $secret) . "=";
 $authorization = "http://www.worldcat.org/wskey/v2/hmac/v1 "."clientId=".$q.$wskey.$qc.
 "timestamp=".$q.$timestamp.$qc.
 "nonce=".$q.$nonce.$qc.
-"signature=".$q.$signature.$q;
+"signature=".$q.$signature.$qc.
+"principalID=".$q.$principalID.$qc.
+"principalIDNS=".$q.$principalIDNS.$q;
+
+print "Authorization Header:\n".$authorization."\n\n";
 
 # Make the HTTP request
 $ua = new LWP::UserAgent;
@@ -123,5 +124,4 @@ $req->header(Authorization => $authorization);
 my $res = $ua->request($req);
 $xmlresult = $res->content;
 
-print $xmlresult;
-print "\n";
+print "Result:\n".$xmlresult;
