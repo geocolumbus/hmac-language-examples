@@ -106,116 +106,116 @@ $authorization = "http://www.worldcat.org/wskey/v2/hmac/v1 " .
 If your WSKey is configured properly, you should get this result for OCLC #1039085:
 
 <pre>
-<?xml version="1.0" encoding="UTF-8"?>
-<entry xmlns="http://www.w3.org/2005/Atom">
-  <content type="application/xml">
-    <response xmlns="http://worldcat.org/rb" mimeType="application/vnd.oclc.marc21+xml">
-      <record xmlns="http://www.loc.gov/MARC21/slim">
-        <leader>00000cam a2200000I  4500</leader>
-        <controlfield tag="001">ocm01039085</controlfield>
-        <controlfield tag="003">OCoLC</controlfield>
-        <controlfield tag="005">20131216133216.8</controlfield>
-        <controlfield tag="008">741011m19251927enk           000 0 eng  </controlfield>
-        <datafield tag="010" ind1=" " ind2=" ">
-          <subfield code="a">   25015133 </subfield>
-    </datafield>
-        <datafield tag="040" ind1=" " ind2=" ">
-          <subfield code="a">DLC</subfield>
-          <subfield code="c">WEL</subfield>
-          <subfield code="d">SER</subfield>
-          <subfield code="d">OCL</subfield>
-          <subfield code="d">MNU</subfield>
-          <subfield code="d">OCL</subfield>
-          <subfield code="d">MUB</subfield>
-          <subfield code="d">OCLCG</subfield>
-          <subfield code="d">CUY</subfield>
-          <subfield code="d">UBY</subfield>
-          <subfield code="d">OCLCF</subfield>
-    </datafield>
-        <datafield tag="019" ind1=" " ind2=" ">
-          <subfield code="a">1393413</subfield>
-          <subfield code="a">10452964</subfield>
-    </datafield>
-        <datafield tag="029" ind1="1" ind2=" ">
-          <subfield code="a">NZ1</subfield>
-          <subfield code="b">8177776</subfield>
-    </datafield>
-        <datafield tag="029" ind1="1" ind2=" ">
-          <subfield code="a">AU@</subfield>
-          <subfield code="b">000022012091</subfield>
-    </datafield>
-        <datafield tag="035" ind1=" " ind2=" ">
-          <subfield code="a">(OCoLC)1039085</subfield>
-          <subfield code="z">(OCoLC)1393413</subfield>
-          <subfield code="z">(OCoLC)10452964</subfield>
-    </datafield>
-        <datafield tag="050" ind1="0" ind2="0">
-          <subfield code="a">QA9</subfield>
-          <subfield code="b">.W5 1925</subfield>
-    </datafield>
-        <datafield tag="082" ind1=" " ind2="4">
-          <subfield code="a">500</subfield>
-    </datafield>
-        <datafield tag="049" ind1=" " ind2=" ">
-          <subfield code="a">MAIN</subfield>
-    </datafield>
-        <datafield tag="100" ind1="1" ind2=" ">
-          <subfield code="a">Whitehead, Alfred North,</subfield>
-          <subfield code="d">1861-1947.</subfield>
-    </datafield>
-        <datafield tag="245" ind1="1" ind2="0">
-          <subfield code="a">Principia mathematica,</subfield>
-          <subfield code="c">by Alfred North Whitehead ... and Bertrand Russell ...</subfield>
-    </datafield>
-        <datafield tag="250" ind1=" " ind2=" ">
-          <subfield code="a">2d ed.</subfield>
-    </datafield>
-        <datafield tag="260" ind1=" " ind2=" ">
-          <subfield code="a">Cambridge [Eng.]</subfield>
-          <subfield code="b">The University Press,</subfield>
-          <subfield code="c">1925-1927.</subfield>
-    </datafield>
-        <datafield tag="300" ind1=" " ind2=" ">
-          <subfield code="a">3 v.</subfield>
-          <subfield code="c">27 cm.</subfield>
-    </datafield>
-        <datafield tag="650" ind1=" " ind2="0">
-          <subfield code="a">Mathematics.</subfield>
-    </datafield>
-        <datafield tag="650" ind1=" " ind2="0">
-          <subfield code="a">Mathematics</subfield>
-          <subfield code="x">Philosophy.</subfield>
-    </datafield>
-        <datafield tag="650" ind1=" " ind2="0">
-          <subfield code="a">Logic, Symbolic and mathematical.</subfield>
-    </datafield>
-        <datafield tag="650" ind1=" " ind2="7">
-          <subfield code="a">Logic, Symbolic and mathematical.</subfield>
-          <subfield code="2">fast</subfield>
-          <subfield code="0">(OCoLC)fst01002068</subfield>
-    </datafield>
-        <datafield tag="650" ind1=" " ind2="7">
-          <subfield code="a">Mathematics.</subfield>
-          <subfield code="2">fast</subfield>
-          <subfield code="0">(OCoLC)fst01012163</subfield>
-    </datafield>
-        <datafield tag="650" ind1=" " ind2="7">
-          <subfield code="a">Mathematics</subfield>
-          <subfield code="x">Philosophy.</subfield>
-          <subfield code="2">fast</subfield>
-          <subfield code="0">(OCoLC)fst01012213</subfield>
-    </datafield>
-        <datafield tag="700" ind1="1" ind2=" ">
-          <subfield code="a">Russell, Bertrand,</subfield>
-          <subfield code="d">1872-1970,</subfield>
-          <subfield code="e">joint author.</subfield>
-    </datafield>
-  </record>
-    </response>
-  </content>
-  <id>http://worldcat.org/oclc/01039085</id>
-  <link href="http://worldcat.org/oclc/01039085"></link>
-</entry>
+&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;entry xmlns="http://www.w3.org/2005/Atom"&gt;
+  &lt;content type="application/xml"&gt;
+    &lt;response xmlns="http://worldcat.org/rb" mimeType="application/vnd.oclc.marc21+xml"&gt;
+      &lt;record xmlns="http://www.loc.gov/MARC21/slim"&gt;
+        &lt;leader&gt;00000cam a2200000I  4500&lt;/leader&gt;
+        &lt;controlfield tag="001"&gt;ocm01039085&lt;/controlfield&gt;
+        &lt;controlfield tag="003"&gt;OCoLC&lt;/controlfield&gt;
+        &lt;controlfield tag="005"&gt;20131216133216.8&lt;/controlfield&gt;
+        &lt;controlfield tag="008"&gt;741011m19251927enk           000 0 eng  &lt;/controlfield&gt;
+        &lt;datafield tag="010" ind1=" " ind2=" "&gt;
+          &lt;subfield code="a"&gt;   25015133 &lt;/subfield&gt;
+    &lt;/datafield&gt;
+        &lt;datafield tag="040" ind1=" " ind2=" "&gt;
+          &lt;subfield code="a"&gt;DLC&lt;/subfield&gt;
+          &lt;subfield code="c"&gt;WEL&lt;/subfield&gt;
+          &lt;subfield code="d"&gt;SER&lt;/subfield&gt;
+          &lt;subfield code="d"&gt;OCL&lt;/subfield&gt;
+          &lt;subfield code="d"&gt;MNU&lt;/subfield&gt;
+          &lt;subfield code="d"&gt;OCL&lt;/subfield&gt;
+          &lt;subfield code="d"&gt;MUB&lt;/subfield&gt;
+          &lt;subfield code="d"&gt;OCLCG&lt;/subfield&gt;
+          &lt;subfield code="d"&gt;CUY&lt;/subfield&gt;
+          &lt;subfield code="d"&gt;UBY&lt;/subfield&gt;
+          &lt;subfield code="d"&gt;OCLCF&lt;/subfield&gt;
+    &lt;/datafield&gt;
+        &lt;datafield tag="019" ind1=" " ind2=" "&gt;
+          &lt;subfield code="a"&gt;1393413&lt;/subfield&gt;
+          &lt;subfield code="a"&gt;10452964&lt;/subfield&gt;
+    &lt;/datafield&gt;
+        &lt;datafield tag="029" ind1="1" ind2=" "&gt;
+          &lt;subfield code="a"&gt;NZ1&lt;/subfield&gt;
+          &lt;subfield code="b"&gt;8177776&lt;/subfield&gt;
+    &lt;/datafield&gt;
+        &lt;datafield tag="029" ind1="1" ind2=" "&gt;
+          &lt;subfield code="a"&gt;AU@&lt;/subfield&gt;
+          &lt;subfield code="b"&gt;000022012091&lt;/subfield&gt;
+    &lt;/datafield&gt;
+        &lt;datafield tag="035" ind1=" " ind2=" "&gt;
+          &lt;subfield code="a"&gt;(OCoLC)1039085&lt;/subfield&gt;
+          &lt;subfield code="z"&gt;(OCoLC)1393413&lt;/subfield&gt;
+          &lt;subfield code="z"&gt;(OCoLC)10452964&lt;/subfield&gt;
+    &lt;/datafield&gt;
+        &lt;datafield tag="050" ind1="0" ind2="0"&gt;
+          &lt;subfield code="a"&gt;QA9&lt;/subfield&gt;
+          &lt;subfield code="b"&gt;.W5 1925&lt;/subfield&gt;
+    &lt;/datafield&gt;
+        &lt;datafield tag="082" ind1=" " ind2="4"&gt;
+          &lt;subfield code="a"&gt;500&lt;/subfield&gt;
+    &lt;/datafield&gt;
+        &lt;datafield tag="049" ind1=" " ind2=" "&gt;
+          &lt;subfield code="a"&gt;MAIN&lt;/subfield&gt;
+    &lt;/datafield&gt;
+        &lt;datafield tag="100" ind1="1" ind2=" "&gt;
+          &lt;subfield code="a"&gt;Whitehead, Alfred North,&lt;/subfield&gt;
+          &lt;subfield code="d"&gt;1861-1947.&lt;/subfield&gt;
+    &lt;/datafield&gt;
+        &lt;datafield tag="245" ind1="1" ind2="0"&gt;
+          &lt;subfield code="a"&gt;Principia mathematica,&lt;/subfield&gt;
+          &lt;subfield code="c"&gt;by Alfred North Whitehead ... and Bertrand Russell ...&lt;/subfield&gt;
+    &lt;/datafield&gt;
+        &lt;datafield tag="250" ind1=" " ind2=" "&gt;
+          &lt;subfield code="a"&gt;2d ed.&lt;/subfield&gt;
+    &lt;/datafield&gt;
+        &lt;datafield tag="260" ind1=" " ind2=" "&gt;
+          &lt;subfield code="a"&gt;Cambridge [Eng.]&lt;/subfield&gt;
+          &lt;subfield code="b"&gt;The University Press,&lt;/subfield&gt;
+          &lt;subfield code="c"&gt;1925-1927.&lt;/subfield&gt;
+    &lt;/datafield&gt;
+        &lt;datafield tag="300" ind1=" " ind2=" "&gt;
+          &lt;subfield code="a"&gt;3 v.&lt;/subfield&gt;
+          &lt;subfield code="c"&gt;27 cm.&lt;/subfield&gt;
+    &lt;/datafield&gt;
+        &lt;datafield tag="650" ind1=" " ind2="0"&gt;
+          &lt;subfield code="a"&gt;Mathematics.&lt;/subfield&gt;
+    &lt;/datafield&gt;
+        &lt;datafield tag="650" ind1=" " ind2="0"&gt;
+          &lt;subfield code="a"&gt;Mathematics&lt;/subfield&gt;
+          &lt;subfield code="x"&gt;Philosophy.&lt;/subfield&gt;
+    &lt;/datafield&gt;
+        &lt;datafield tag="650" ind1=" " ind2="0"&gt;
+          &lt;subfield code="a"&gt;Logic, Symbolic and mathematical.&lt;/subfield&gt;
+    &lt;/datafield&gt;
+        &lt;datafield tag="650" ind1=" " ind2="7"&gt;
+          &lt;subfield code="a"&gt;Logic, Symbolic and mathematical.&lt;/subfield&gt;
+          &lt;subfield code="2"&gt;fast&lt;/subfield&gt;
+          &lt;subfield code="0"&gt;(OCoLC)fst01002068&lt;/subfield&gt;
+    &lt;/datafield&gt;
+        &lt;datafield tag="650" ind1=" " ind2="7"&gt;
+          &lt;subfield code="a"&gt;Mathematics.&lt;/subfield&gt;
+          &lt;subfield code="2"&gt;fast&lt;/subfield&gt;
+          &lt;subfield code="0"&gt;(OCoLC)fst01012163&lt;/subfield&gt;
+    &lt;/datafield&gt;
+        &lt;datafield tag="650" ind1=" " ind2="7"&gt;
+          &lt;subfield code="a"&gt;Mathematics&lt;/subfield&gt;
+          &lt;subfield code="x"&gt;Philosophy.&lt;/subfield&gt;
+          &lt;subfield code="2"&gt;fast&lt;/subfield&gt;
+          &lt;subfield code="0"&gt;(OCoLC)fst01012213&lt;/subfield&gt;
+    &lt;/datafield&gt;
+        &lt;datafield tag="700" ind1="1" ind2=" "&gt;
+          &lt;subfield code="a"&gt;Russell, Bertrand,&lt;/subfield&gt;
+          &lt;subfield code="d"&gt;1872-1970,&lt;/subfield&gt;
+          &lt;subfield code="e"&gt;joint author.&lt;/subfield&gt;
+    &lt;/datafield&gt;
+  &lt;/record&gt;
+    &lt;/response&gt;
+  &lt;/content&gt;
+  &lt;id&gt;http://worldcat.org/oclc/01039085&lt;/id&gt;
+  &lt;link href="http://worldcat.org/oclc/01039085"&gt;&lt;/link&gt;
+&lt;/entry&gt;
 </pre>
 
 ## Notes
