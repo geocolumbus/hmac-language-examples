@@ -108,10 +108,10 @@ for different languages (PHP, Perl, Python and Java).
     signature="{signature}"
     principalID="{principalID}"
     principalIDNS="{principalIDNS}"
-    </pre>
 
     For example:
     http://www.worldcat.org/wskey/v2/hmac/v1 clientId="{wskey}",timestamp="1391177450",nonce="42203e11",signature="zk/q5vyHCOLulPf6Yu5pONy+pTsKby4RN+WJ1+TT1SQ=",principalID="{principalID}",principalIDNS="{principalIDNS}"</li>
+    </pre>
 <li>Finally, you are ready to make the request:
 <ul>
 <li>Set any additional headers per the documentation; for example "Accept: application/json"</li>
