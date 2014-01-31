@@ -17,6 +17,7 @@
 ###############################################################################
 
 # Perl 5.12 HMAC Authentication and Worldcat Metadata Bibliographic Record GET
+# http://oclc.org/developer/documentation/worldcat-metadata-api/bibliographic-record-resource
 
 use Digest::SHA qw(hmac_sha256_base64);
 use MIME::Base64;
