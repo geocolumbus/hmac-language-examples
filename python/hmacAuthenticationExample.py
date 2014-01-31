@@ -17,6 +17,7 @@
 ###############################################################################
 
 # Python 2.75 HMAC Authentication and Worldcat Metadata Bibliographic Record GET
+# http://oclc.org/developer/documentation/worldcat-metadata-api/bibliographic-record-resource
 
 import random
 import math
