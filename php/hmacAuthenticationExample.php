@@ -16,16 +16,17 @@
  ******************************************************************************/
 
 // PHP 5.4.17 HMAC Authentication and Worldcat Metadata Bibliographic Record Request
-//
 // http://oclc.org/developer/documentation/worldcat-metadata-api/bibliographic-record-resource
 
-// Authentication and request parameters
+// Define constants
 $wskey = "";
 $secret = "";
 $principalID = "";
 $principalIDNS = "";
 $institutionId = "128807";
 $classificationScheme = "LibraryOfCongress";
+// Get holding codes this way - requires HMAC
+// https://worldcat.org/bib/holdinglibraries?inst=128807&principalID={}&principalIDNS={}
 $holdingLibraryCode = "MAIN";
 $oclcNumber = "1039085";
 $startIndex = "1";
@@ -38,33 +39,28 @@ $qc = "\",";
 $urlpattern = "https://worldcat.org/bib/data/{oclcNumber}?" .
     "inst={inst}" .
     "&classificationScheme={classificationScheme}" .
-    "&holdingLibraryCode={holdingLibraryCode}" .
-    "&principalID={principalIDEncoded}" .
-    "&principalIDNS={principalIDNSEncoded}";
-
-$principalIDEncoded = urlencode($principalID);
-$principalIDNSEncoded = urlencode($principalIDNS);
+    "&holdingLibraryCode={holdingLibraryCode}";
 
 // construct the parameter list
 // they must be in alphabetical order!
 $queryparams = "" .
     "classificationScheme=" . $classificationScheme . "\n" .
     "holdingLibraryCode=" . $holdingLibraryCode . "\n" .
-    "inst=" . $institutionId . "\n" .
-    "principalID=" . $principalIDEncoded . "\n" .
-    "principalIDNS=" . $principalIDNSEncoded . "\n";
+    "inst=" . $institutionId . "\n";
+
+echo "\nQuery Params:\n".$queryparams."\n\n";
 
 // set the method
 $method = "GET";
 
 // construct the url
 $url = $urlpattern;
-$url = str_replace("{inst}", $institutionId, $url);
-$url = str_replace("{oclcNumber}", $oclcNumber, $url);
-$url = str_replace("{classificationScheme}", $classificationScheme, $url);
-$url = str_replace("{holdingLibraryCode}", $holdingLibraryCode, $url);
-$url = str_replace("{principalIDEncoded}", $principalIDEncoded, $url);
-$url = str_replace("{principalIDNSEncoded}", $principalIDNSEncoded, $url);
+$url = str_replace("{inst}",$institutionId,$url);
+$url = str_replace("{oclcNumber}",$oclcNumber,$url);
+$url = str_replace("{classificationScheme}",$classificationScheme,$url);
+$url = str_replace("{holdingLibraryCode}",$holdingLibraryCode,$url);
+
+echo "URL:\n".$url."\n\n";
 
 // create the timestamp, POSIX seconds since 1970 (aka Unix Time)
 $timestamp = time();
@@ -86,6 +82,8 @@ $normalizedRequest = $wskey . "\n" .
     "/wskey" . "\n" .
     $queryparams;
 
+echo "Normalized Request:\n".$normalizedRequest."\n\n";
+
 // hash the normalized request
 $signature = base64_encode(hash_hmac("sha256", $normalizedRequest, $secret, true));
 
@@ -94,7 +92,11 @@ $authorization = "http://www.worldcat.org/wskey/v2/hmac/v1 " .
     "clientId=" . $q . $wskey . $qc .
     "timestamp=" . $q . $timestamp . $qc .
     "nonce=" . $q . $nonce . $qc .
-    "signature=" . $q . $signature . $q;
+    "signature=" . $q . $signature . $qc .
+    "principalID=" . $q . $principalID . $qc .
+    "principalIDNS=" . $q .$principalIDNS . $q;
+
+echo "Authorization:\n".$authorization."\n\n";
 
 // Make the HTTP request
 $headerArray[] = "Authorization: " . $authorization;
@@ -111,7 +113,5 @@ curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 $xmlresult = curl_exec($ch);
 curl_close($ch);
 
-echo $xmlresult;
-echo "\n";
-
+echo "Result:\n".$xmlresult."\n";
 ?>
