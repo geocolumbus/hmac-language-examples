@@ -16,7 +16,7 @@
 # limitations under the License.
 ###############################################################################
 
-# Python 2.75 HMAC Authentication and WMS Pull List GET
+# Python 2.75 HMAC Authentication and Worldcat Metadata Bibliographic Record GET
 
 import random
 import math
