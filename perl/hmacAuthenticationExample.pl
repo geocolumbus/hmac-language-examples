@@ -16,7 +16,7 @@
 # limitations under the License.
 ###############################################################################
 
-# Perl 5.12 HMAC Authentication and WMS Pull List GET
+# Perl 5.12 HMAC Authentication and Worldcat Metadata Bibliographic Record GET
 
 use Digest::SHA qw(hmac_sha256_base64);
 use MIME::Base64;
@@ -39,8 +39,6 @@ $principalID   = ";
 $principalIDNS = "";
 $institutionId = "128807";
 $classificationScheme = "LibraryOfCongress";
-# Get holding codes this way - requires HMAC
-# https://worldcat.org/bib/holdinglibraries?inst=128807&principalID={}&principalIDNS={}
 $holdingLibraryCode = "MAIN";
 $oclcNumber = "1039085";
 
