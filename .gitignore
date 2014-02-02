@@ -3,3 +3,5 @@ test1.*
 tempfile.sh
 .idea
 *.class
+wskey.txt
+
