@@ -1,7 +1,12 @@
+# project files
 test.*
 test1.*
 tempfile.sh
-.idea
 *.class
 wskey.txt
 
+# PyCharm IDE
+.idea
+
+# mac osx
+.DS_Store
