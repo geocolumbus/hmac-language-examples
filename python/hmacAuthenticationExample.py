@@ -28,9 +28,9 @@ import base64
 import urllib2
 
 # Define constants
-wskey = ""
-secret = ""
-principalID = ""
+wskey         = ""
+secret        = ""
+principalID   = ""
 principalIDNS = ""
 institutionId = "128807"
 classificationScheme = "LibraryOfCongress"
@@ -50,7 +50,7 @@ queryparams = ("classificationScheme=" + classificationScheme + "\n" +
                "holdingLibraryCode=" + holdingLibraryCode + "\n" +
                "inst=" + institutionId + "\n")
 
-print "\n" + "Query Parameters:\n" + queryparams
+print("\n" + "Query Parameters:\n" + queryparams)
 
 # set the method
 method = "GET"
@@ -62,7 +62,7 @@ url = url.replace("{holdingLibraryCode}", holdingLibraryCode)
 url = url.replace("{inst}", institutionId)
 url = url.replace("{oclcNumber}", oclcNumber)
 
-print "URL:\n" + url + "\n"
+print("URL:\n" + url + "\n")
 
 # create the timestamp, POSIX seconds since 1970 (aka Unix Time)
 timestamp = str(int(time.time()))
@@ -84,7 +84,7 @@ normalizedRequest = (wskey + "\n" +
                      "/wskey" + "\n" +
                      queryparams)
 
-print "Normalized Request:\n" + normalizedRequest + "\n"
+print("Normalized Request:\n" + normalizedRequest + "\n")
 
 # hash the normalized request
 digest = hmac.new(secret, msg=normalizedRequest, digestmod=hashlib.sha256).digest()
@@ -103,11 +103,11 @@ authorization = ("http://www.worldcat.org/wskey/v2/hmac/v1 " +
                  "principalID=" + q + principalID + qc +
                  "principalIDNS=" + q + principalIDNS + q)
 
-print "Authorization Header:\n" + authorization + "\n"
+print("Authorization Header:\n" + authorization + "\n")
 
 # Make the HTTP request
 if method == 'GET':
     myRequest = urllib2.Request(url, None, {'Authorization': authorization})
 xmlresult = urllib2.urlopen(myRequest).read()
 
-print "Result:\n" + xmlresult
+print("Result:\n" + xmlresult)
